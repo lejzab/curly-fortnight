@@ -1,2 +1,2 @@
 # curly-fortnight
-project euler
+project euler https://projecteuler.net/
