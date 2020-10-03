@@ -1,17 +1,42 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
-	"golang.org/x/crypto/bcrypt"
 )
 
+type Person struct {
+	First string
+	Age   int
+}
+
+var data = `
+[
+	{"First":"Paweł","Age":42},
+	{"First":"Agnieszka","Age":40},
+	{"First":"Lena","Age":7}
+]`
+
 func main() {
-	fmt.Println("Hello")
-	x := `Pa1sword 1234`
-	bs, err := bcrypt.GenerateFromPassword([]byte(x), bcrypt.DefaultCost)
+	people := []Person{
+		{
+			First: "Paweł",
+			Age:   42,
+		},
+		{
+			First: "Agnieszka",
+			Age:   40,
+		},
+	}
+	fmt.Println(people)
+	bs, err := json.Marshal(people)
 	if err != nil {
 		fmt.Println(err)
 	}
-	fmt.Println(bs)
-	fmt.Println(x)
+	fmt.Println(string(bs))
+	err = json.Unmarshal([]byte(data), &people)
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Println(people)
 }
