@@ -1,53 +1,22 @@
 package main
 
 import (
-	"encoding/json"
-	"fmt"
 	log "github.com/sirupsen/logrus"
-	"os"
+	"golang.org/x/text/collate"
+	"golang.org/x/text/language"
+	"sort"
 )
-
-type Person struct {
-	First string `json:"Imię"`
-	Age   int    `json:"Wiek"`
-}
 
 func main() {
 	log.Info("START")
-	var data = `
-[
-	{"Imię":"Paweł","Wiek":42},
-	{"Imię":"Agnieszka","Wiek":40},
-	{"Imię":"Lena","Wiek":7}
-]`
-	people := []Person{
-		{
-			First: "Paweł",
-			Age:   42,
-		},
-		{
-			First: "Agnieszka",
-			Age:   40,
-		},
-	}
-	log.Info(people)
-	bs, err := json.Marshal(people)
-	if err != nil {
-		fmt.Println(err)
-	}
-	fmt.Println(string(bs))
-	err = json.Unmarshal([]byte(data), &people)
-	if err != nil {
-		fmt.Println(err)
-	}
-	for _, v := range people {
-		fmt.Println(v)
-	}
-	fmt.Println("\t\t--------------------------------------\n")
-	enco := json.NewEncoder(os.Stdout)
-	err = enco.Encode(people)
-	if err != nil {
-		log.Warn(err)
-	}
+	xi := []int{7, 10, 1, 2, 6, 5, 12}
+	log.Info(xi)
+	sort.Ints(xi)
+	log.Info(xi)
+	xs := []string{"Paweł", "Lena", "Agnieszka", "Aurelia", "Jagoda", "Kuba", "Łukasz", "Jeremi"}
+	log.Info(xs)
+	coll := collate.New(language.Polish)
+	coll.SortStrings(xs)
+	log.Info(xs)
 	log.Info("STOP")
 }
