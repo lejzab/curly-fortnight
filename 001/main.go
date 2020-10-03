@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"os"
 )
 
 type Person struct {
@@ -37,5 +38,13 @@ func main() {
 	if err != nil {
 		fmt.Println(err)
 	}
-	fmt.Println(people)
+	for _, v := range people {
+		fmt.Println(v)
+	}
+	fmt.Println("\t\t--------------------------------------\n")
+	enco := json.NewEncoder(os.Stdout)
+	err = enco.Encode(people)
+	if err != nil {
+		fmt.Println(err)
+	}
 }
