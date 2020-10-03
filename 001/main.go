@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	log "github.com/sirupsen/logrus"
 	"os"
 )
 
@@ -12,6 +13,7 @@ type Person struct {
 }
 
 func main() {
+	log.Info("START")
 	var data = `
 [
 	{"Imię":"Paweł","Wiek":42},
@@ -28,7 +30,7 @@ func main() {
 			Age:   40,
 		},
 	}
-	fmt.Println(people)
+	log.Info(people)
 	bs, err := json.Marshal(people)
 	if err != nil {
 		fmt.Println(err)
@@ -45,6 +47,7 @@ func main() {
 	enco := json.NewEncoder(os.Stdout)
 	err = enco.Encode(people)
 	if err != nil {
-		fmt.Println(err)
+		log.Warn(err)
 	}
+	log.Info("STOP")
 }
