@@ -6,18 +6,17 @@ import (
 )
 
 type Person struct {
-	First string
-	Age   int
+	First string `json:"Imię"`
+	Age   int    `json:"Wiek"`
 }
 
-var data = `
-[
-	{"First":"Paweł","Age":42},
-	{"First":"Agnieszka","Age":40},
-	{"First":"Lena","Age":7}
-]`
-
 func main() {
+	var data = `
+[
+	{"Imię":"Paweł","Wiek":42},
+	{"Imię":"Agnieszka","Wiek":40},
+	{"Imię":"Lena","Wiek":7}
+]`
 	people := []Person{
 		{
 			First: "Paweł",
