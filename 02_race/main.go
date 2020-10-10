@@ -18,6 +18,7 @@ func main() {
 		wg.Add(1)
 		go func() {
 			atomic.AddInt64(&counter, 1)
+			fmt.Println("counter\t", atomic.LoadInt64(&counter))
 			wg.Done()
 		}()
 		fmt.Println("Goroutines", runtime.NumGoroutine())
