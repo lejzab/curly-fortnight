@@ -18,6 +18,7 @@ func main() {
 		wg.Add(1)
 		go func() {
 			atomic.AddInt64(&counter, 1)
+			runtime.Gosched()
 			fmt.Println("counter\t", atomic.LoadInt64(&counter))
 			wg.Done()
 		}()
