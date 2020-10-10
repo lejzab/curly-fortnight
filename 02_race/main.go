@@ -4,24 +4,20 @@ import (
 	"fmt"
 	"runtime"
 	"sync"
+	"sync/atomic"
 )
 
 func main() {
-	counter := 0
+	var counter int64
 	const gs = 100
 
 	var wg sync.WaitGroup
-	var mu sync.Mutex
+	//var mu sync.Mutex
 
 	for i := 0.; i < gs; i++ {
 		wg.Add(1)
 		go func() {
-			mu.Lock()
-			v := counter
-			runtime.Gosched()
-			v++
-			counter = v
-			mu.Unlock()
+			atomic.AddInt64(&counter, 1)
 			wg.Done()
 		}()
 		fmt.Println("Goroutines", runtime.NumGoroutine())
