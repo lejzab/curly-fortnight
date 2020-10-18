@@ -44,28 +44,22 @@ func SimpleSum(max int) int {
 	return sum
 }
 
-
 func ArithmeticSum(max int) int {
-	//max should NOT be included
-	max--
-	//sum of 3 + 6 + 9 + ... an
-	a1 := 3
-	an := (max/a1) * a1
-	n := an/a1
-	sum := (a1 + an)*n/2
-	//sum of 5 + 10 + 15 + ... + an
-	a1 = 5
-	an = (max/a1) * a1
-	n = an/a1
-	sum += (a1 + an)*n/2
-	//sum of 3*5 = 15 + 30 + ... + an, which should be subtracted
-	a1 = 15
-	an = (max/a1) * a1
-	n = an/a1
-	sum -= (a1 + an)*n/2
+	sum := sum2(max, 3)
+	sum += sum2(max, 5)
+	sum -= sum2(max, 15)
 	return sum
 }
 
-//func sum2(max, a int) int {
-//	max
-//}
+func sum2(max, a int) int {
+	if a > max {
+		return 0
+	}
+	//max should NOT be included
+	max--
+	//sum of a1 + a2 + a3 + ... an
+	a1 := a
+	an := (max / a1) * a1
+	n := an / a1
+	return (a1 + an) * n / 2
+}
