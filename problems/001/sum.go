@@ -15,11 +15,17 @@ func main() {
 	var max int
 	flag.IntVar(&max, "max", 10, "max value")
 	flag.Parse()
-	log.Infof("Searching for sum ov values under %d", max)
+	log.Infof("Searching for simple sum ov values under %d", max)
 	go func() {
 		ch <- SimpleSum(max)
 	}()
 	log.Infof("Searched value is %d", <-ch)
+	log.Infof("Searching for arithmethic sum ov values under %d", max)
+	go func() {
+		ch <- ArithmeticSum(max)
+	}()
+	log.Infof("Searched value is %d", <-ch)
+
 	log.Info("STOP")
 }
 
@@ -37,3 +43,29 @@ func SimpleSum(max int) int {
 	}
 	return sum
 }
+
+
+func ArithmeticSum(max int) int {
+	//max should NOT be included
+	max--
+	//sum of 3 + 6 + 9 + ... an
+	a1 := 3
+	an := (max/a1) * a1
+	n := an/a1
+	sum := (a1 + an)*n/2
+	//sum of 5 + 10 + 15 + ... + an
+	a1 = 5
+	an = (max/a1) * a1
+	n = an/a1
+	sum += (a1 + an)*n/2
+	//sum of 3*5 = 15 + 30 + ... + an, which should be subtracted
+	a1 = 15
+	an = (max/a1) * a1
+	n = an/a1
+	sum -= (a1 + an)*n/2
+	return sum
+}
+
+//func sum2(max, a int) int {
+//	max
+//}
