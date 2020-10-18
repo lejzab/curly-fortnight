@@ -14,8 +14,13 @@ What is the largest prime factor of the number 600851475143 ?
 func main() {
 	log.Info("START")
 	log.Info(taskDescr)
-	var max int64
-	flag.Int64Var(&max, "max", 100, "max value")
+	var number int
+	flag.IntVar(&number, "number", 13195, "number to factorize")
 	flag.Parse()
 	log.Info("STOP")
+}
+
+func PrimeFator(n int) map[int]bool {
+	pf := map[int]bool{}
+	return pf
 }
